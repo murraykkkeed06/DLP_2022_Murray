@@ -76,16 +76,18 @@ x2, y2 = generate_XOR_easy()
 
 #parameter
 n_epochs = 200
-lr = 1
-
+lr = 1e-3
+n_cell_second_layers = 6
+n_cell_third_layers = 4
 #weight in three layers
-w1 = np.random.normal(size=(2,6))
-w2 = np.random.normal(size=(6,4))
-w3 = np.random.normal(size=(4,1))
+w1 = np.random.normal(size=(2,n_cell_second_layers))
+w2 = np.random.normal(size=(n_cell_second_layers,n_cell_third_layers))
+w3 = np.random.normal(size=(n_cell_third_layers,1))
 
-w1_grad = np.zeros((2,6))
-w2_grad = np.zeros((6,4))
-w3_grad = np.zeros((4,1))
+w1_grad = np.zeros((2,n_cell_second_layers))
+w2_grad = np.zeros((n_cell_second_layers,n_cell_third_layers))
+w3_grad = np.zeros((n_cell_third_layers,1))
+
 #######################################
 # training of linear data [2  6   4  1]
 #-------------------------[ 26  64  41 ]
@@ -118,7 +120,7 @@ pred_y1 = np.zeros((100,1))
 n_correct1 = 0
 for i in range(100):
     p1 = sigmoid(np.matmul(x1[i], w1)).reshape((1,-1))
-    p2 = sigmoid(np.matmul(p1, w2))
+    p2 = sigmoid(np.matmul(p1, w2)) 
     p3 = sigmoid(np.matmul(p2, w3))
     print(p3)
     pred_y1[i] = p3
@@ -127,13 +129,13 @@ for i in range(100):
 
 
 #weight clear
-w1 = np.random.normal(size=(2,6))
-w2 = np.random.normal(size=(6,4))
-w3 = np.random.normal(size=(4,1))
+w1 = np.random.normal(size=(2,n_cell_second_layers))
+w2 = np.random.normal(size=(n_cell_second_layers,n_cell_third_layers))
+w3 = np.random.normal(size=(n_cell_third_layers,1))
 
-w1_grad = np.zeros((2,6))
-w2_grad = np.zeros((6,4))
-w3_grad = np.zeros((4,1))
+w1_grad = np.zeros((2,n_cell_second_layers))
+w2_grad = np.zeros((n_cell_second_layers,n_cell_third_layers))
+w3_grad = np.zeros((n_cell_third_layers,1))
 
 ###################################
 #training of xor data[2  6   4   1]
